@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LanguageSchool"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="LanguageSchool" Height="450" Width="800" MinWidth="450" MinHeight="800">
     <Grid>
-        
+        <Frame Name="MainFrame"/>
     </Grid>
 </Window>
