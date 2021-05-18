@@ -1,0 +1,45 @@
+﻿<Page x:Class="LanguageSchool.Pages.AdminPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LanguageSchool.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AdminPage">
+
+    <Grid>
+        <ScrollViewer>
+            <StackPanel>
+                <DataGrid Name="ServicesDG" AutoGenerateColumns="False" HorizontalAlignment="Center" CanUserAddRows="False">
+                    <DataGrid.Columns >
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel  Orientation="Horizontal" Initialized="StackPanel_Initialized">
+                                        <StackPanel >
+                                            <MediaElement Width="100" Height="100" Initialized="MediaElement_Initialized" />
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <TextBlock Name="Title" Initialized="Title_Initialized"></TextBlock>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Name="FalseCount" Initialized="FalseCount_Initialized" TextDecorations="Strikethrough" />
+                                                <TextBlock Name="CountTime" Initialized="CountTime_Initialized"/>
+                                            </StackPanel>
+                                            <TextBlock Name="Discount" Initialized="Discount_Initialized"></TextBlock>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Name="Edit" Content="Редактировать" Initialized="Edit_Initialized" Click="Edit_Click"/>
+                                                <Button Name="Delete" Content="Удалить" Initialized="Delete_Initialized" Click="Delete_Click"/>
+                                                <Button Name="NewOrder" Content="Новый заказ" Initialized="NewOrder_Initialized" Click="NewOrder_Click"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

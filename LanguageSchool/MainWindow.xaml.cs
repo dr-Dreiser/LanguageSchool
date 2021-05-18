@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LanguageSchool.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,9 @@ namespace LanguageSchool
         public MainWindow()
         {
             InitializeComponent();
+            DataClass.RE = new ModelData.RazenkoEntities();
             ClassFrame.VariableFrame = MainFrame;
+            MainFrame.Navigate(new Pages.AdminPage());
         }
     }
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4b1719032b2d475e903aaba612d76f5f" Name="Diagram1">
+        <EntityTypeShape EntityType="RazenkoModel.Client" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RazenkoModel.ClientService" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RazenkoModel.DocumentByService" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="RazenkoModel.Gender" Width="1.5" PointX="1.5" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RazenkoModel.Manufacturer" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="RazenkoModel.Product" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RazenkoModel.ProductPhoto" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="RazenkoModel.ProductSale" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RazenkoModel.Service" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RazenkoModel.ServicePhoto" Width="1.5" PointX="3" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RazenkoModel.Tag" Width="1.5" PointX="3" PointY="16.25" IsExpanded="true" />
+        <AssociationConnector Association="RazenkoModel.FK_Client_Gender" ManuallyRouted="false" />
+        <AssociationConnector Association="RazenkoModel.FK_ClientService_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="RazenkoModel.FK_ClientService_Service" ManuallyRouted="false" />
+        <AssociationConnector Association="RazenkoModel.FK_DocumentByService_ClientService" ManuallyRouted="false" />
+        <AssociationConnector Association="RazenkoModel.FK_ProductSale_ClientService" ManuallyRouted="false" />
+        <AssociationConnector Association="RazenkoModel.FK_Product_Manufacturer" ManuallyRouted="false" />
+        <AssociationConnector Association="RazenkoModel.FK_ProductPhoto_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="RazenkoModel.FK_ProductSale_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="RazenkoModel.FK_ServicePhoto_Service" ManuallyRouted="false" />
+        <AssociationConnector Association="RazenkoModel.AttachedProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="RazenkoModel.TagOfClient" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
