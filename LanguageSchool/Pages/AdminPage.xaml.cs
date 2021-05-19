@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
+using Button = System.Windows.Controls.Button;
+using MessageBox = System.Windows.MessageBox;
+using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 
 namespace LanguageSchool.Pages
 {
@@ -24,10 +29,15 @@ namespace LanguageSchool.Pages
         double res;
         double DiscountDouble;
         TextBlock TBFalseCount;
+
+        ModelData.Service EditObject;
+        string NewPathImg;
+        string CroopNewPathImg;
         public AdminPage()
         {
             InitializeComponent();
             ServicesDG.ItemsSource = ServicesList;
+
         }
         int i = -1;
         private void MediaElement_Initialized(object sender, EventArgs e)
@@ -136,22 +146,55 @@ namespace LanguageSchool.Pages
                 
             }
         }
+        private void PathImg_EditAdd_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog DialogWindow = new OpenFileDialog();
+            DialogWindow.ShowDialog();
+            NewPathImg = DialogWindow.FileName;
+            int IndexForDelit = NewPathImg.IndexOf('У');
+            int LengthLine = NewPathImg.Length - 1;
+            CroopNewPathImg = NewPathImg.Remove(0, IndexForDelit);
+            PathImgObject.Text = CroopNewPathImg;
 
+        }
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
             Button BEdit = (Button)sender;
             int index = Convert.ToInt32(BEdit.Uid);
             ModelData.Service ser = ServicesList[index];
-            MessageBox.Show("Редактировать данные у ячейки " + ser.Title);
 
+            Pattern.Visibility = Visibility.Collapsed; 
+            Menu.Visibility = Visibility.Collapsed;
+            FormForEdit.Visibility = Visibility.Visible;
+
+            EditObject = ServicesList[index];
+            IDObject.Text = EditObject.ID.ToString();
+            TitleObject.Text = EditObject.Title;
+            CostObject.Text = EditObject.Cost.ToString();
+            TimeObject.Text = (EditObject.DurationInSeconds/60).ToString();
+            DiscriptionObject.Text = EditObject.Description;
+            DiscountObject.Text = (EditObject.Discount*100).ToString();
+            PathImgObject.Text = EditObject.MainImagePath;
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             Button BDelete = (Button)sender;
             int index = Convert.ToInt32(BDelete.Uid);
-            ModelData.Service ser = ServicesList[index];
-            MessageBox.Show("Удалить данные у ячейки " + ser.Title);
+
+            DialogResult ApprovalDelete = (DialogResult)MessageBox.Show("Вы действительно хотите удалить услугу?", "Внимание!", (MessageBoxButton)MessageBoxButtons.YesNo);
+            if (ApprovalDelete == DialogResult.Yes)
+            {
+                ModelData.Service ser = ServicesList[index];
+                Classes.DataClass.RE.Service.Remove(ser);
+                MessageBox.Show("Запись удалена");
+                Classes.DataClass.RE.SaveChanges();
+                ClassFrame.VariableFrame.Navigate(new Pages.AdminPage());
+            }
+            else if (ApprovalDelete == DialogResult.No)
+            {
+                MessageBox.Show("Запись оставлена без изменений");
+            }
         }
 
         private void NewOrder_Click(object sender, RoutedEventArgs e)
@@ -160,6 +203,76 @@ namespace LanguageSchool.Pages
             int index = Convert.ToInt32(BNewOrder.Uid);
             ModelData.Service ser = ServicesList[index];
             MessageBox.Show("Новый заказ у ячейки " + ser.Title);
+        }
+
+        private void LogoImg_Initialized(object sender, EventArgs e)
+        {
+            MediaElement image = (MediaElement)sender;
+            Uri PathImg = new Uri("Resource / school_logo.png", UriKind.RelativeOrAbsolute);
+            image.Source = PathImg;
+
+            
+
+
+        }
+        
+        private void EditSave_Click(object sender, RoutedEventArgs e)
+        {
+            Pattern.Visibility = Visibility.Visible;
+            Menu.Visibility = Visibility.Visible;
+            FormForEdit.Visibility = Visibility.Collapsed;
+
+            EditObject.ID = Convert.ToInt32(IDObject.Text);
+            EditObject.Title = TitleObject.Text;
+            if(Convert.ToDecimal(CostObject.Text) <= 0)
+            {
+                MessageBox.Show("Введите корректные данные о стоимости услуги");
+            }
+            else
+            {
+                EditObject.Cost = Convert.ToDecimal(CostObject.Text);
+            }
+
+            int TimeConvert = Convert.ToInt32(TimeObject.Text)/60;
+            if (TimeConvert < 0 || TimeConvert > 4 ) 
+            {
+                MessageBox.Show("Неправильно введено время или привышен лимит в 4 часа.");
+            }
+            else
+            {
+                EditObject.DurationInSeconds = Convert.ToInt32(TimeObject.Text) * 60;
+            };
+
+            EditObject.Description = DiscriptionObject.Text;
+            double ConvertDiscount = Convert.ToDouble(DiscountObject.Text);
+            if(ConvertDiscount < 0 || ConvertDiscount > 100)
+            {
+                MessageBox.Show("Скидка может быть в размере от 0 до 100 %");
+            }
+            else
+            {
+                EditObject.Discount = ConvertDiscount / 100;
+            }
+            if(CroopNewPathImg != null)
+            {
+                EditObject.MainImagePath = CroopNewPathImg;
+                MessageBox.Show(CroopNewPathImg);
+            }
+            else
+            {
+                
+                EditObject.MainImagePath = PathImgObject.Text;
+            }
+
+            Classes.DataClass.RE.SaveChanges();
+            ClassFrame.VariableFrame.Navigate(new Pages.AdminPage());
+
+
+        }
+
+        private void NewService_Add_Click(object sender, RoutedEventArgs e)
+        {
+            ClassFrame.VariableFrame.Navigate(new Pages.NewServiceAdd());
         }
     }
 }

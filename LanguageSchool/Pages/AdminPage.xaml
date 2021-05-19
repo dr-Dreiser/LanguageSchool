@@ -9,37 +9,76 @@
       Title="AdminPage">
 
     <Grid>
-        <ScrollViewer>
-            <StackPanel>
-                <DataGrid Name="ServicesDG" AutoGenerateColumns="False" HorizontalAlignment="Center" CanUserAddRows="False">
-                    <DataGrid.Columns >
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel  Orientation="Horizontal" Initialized="StackPanel_Initialized">
-                                        <StackPanel >
-                                            <MediaElement Width="100" Height="100" Initialized="MediaElement_Initialized" />
-                                        </StackPanel>
-                                        <StackPanel>
-                                            <TextBlock Name="Title" Initialized="Title_Initialized"></TextBlock>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Name="FalseCount" Initialized="FalseCount_Initialized" TextDecorations="Strikethrough" />
-                                                <TextBlock Name="CountTime" Initialized="CountTime_Initialized"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.5*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Name="TitlePAge" Grid.Row="0" Grid.ColumnSpan="3">
+            <MediaElement Name="LogoImg" Initialized="LogoImg_Initialized"></MediaElement>
+            <TextBlock HorizontalAlignment="Center">Страница администратора</TextBlock>
+        </StackPanel>
+        <StackPanel Name="Menu" Grid.Row="1" Grid.Column="2" Grid.RowSpan="4" Visibility="Visible">
+            <TextBlock HorizontalAlignment="Center">Меню</TextBlock>
+            <Button Name="NewService_Add" Content="Новая услуга" Click="NewService_Add_Click"/>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Name="Pattern" Visibility="Visible">
+                <StackPanel>
+                        <DataGrid Name="ServicesDG" AutoGenerateColumns="False" HorizontalAlignment="Center" CanUserAddRows="False">
+                            <DataGrid.Columns >
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel  Orientation="Horizontal" Initialized="StackPanel_Initialized">
+                                                <StackPanel >
+                                                    <MediaElement Width="100" Height="100" Initialized="MediaElement_Initialized" />
+                                                </StackPanel>
+                                                <StackPanel>
+                                                    <TextBlock Name="Title" Initialized="Title_Initialized"></TextBlock>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Name="FalseCount" Initialized="FalseCount_Initialized" TextDecorations="Strikethrough" />
+                                                        <TextBlock Name="CountTime" Initialized="CountTime_Initialized"/>
+                                                    </StackPanel>
+                                                    <TextBlock Name="Discount" Initialized="Discount_Initialized"></TextBlock>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Button Name="Edit" Content="Редактировать" Initialized="Edit_Initialized" Click="Edit_Click"/>
+                                                        <Button Name="Delete" Content="Удалить" Initialized="Delete_Initialized" Click="Delete_Click"/>
+                                                        <Button Name="NewOrder" Content="Новый заказ" Initialized="NewOrder_Initialized" Click="NewOrder_Click"/>
+                                                    </StackPanel>
+                                                </StackPanel>
                                             </StackPanel>
-                                            <TextBlock Name="Discount" Initialized="Discount_Initialized"></TextBlock>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Button Name="Edit" Content="Редактировать" Initialized="Edit_Initialized" Click="Edit_Click"/>
-                                                <Button Name="Delete" Content="Удалить" Initialized="Delete_Initialized" Click="Delete_Click"/>
-                                                <Button Name="NewOrder" Content="Новый заказ" Initialized="NewOrder_Initialized" Click="NewOrder_Click"/>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </StackPanel>
-        </ScrollViewer>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+            </ScrollViewer>
+
+        <StackPanel Name="FormForEdit" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="3" Visibility="Collapsed">
+            <TextBlock>Редактирование данных</TextBlock>
+            <TextBlock>ID услуги</TextBlock>
+            <TextBox Name="IDObject" IsEnabled="False"></TextBox>
+            <TextBlock>Название услуги</TextBlock>
+            <TextBox Name="TitleObject"></TextBox>
+            <TextBlock>Стоимость услуги</TextBlock>
+            <TextBox Name="CostObject"></TextBox>
+            <TextBlock>Время проведения занятия (мин)</TextBlock>
+            <TextBox Name="TimeObject"></TextBox>
+            <TextBlock>Описание услуги</TextBlock>
+            <TextBox Name="DiscriptionObject"></TextBox>
+            <TextBlock>Скидка (% не вводить!)</TextBlock>
+            <TextBox Name="DiscountObject"></TextBox>
+            <TextBlock>Изображение</TextBlock>
+            <TextBox Name="PathImgObject"></TextBox>
+            <Button Name="PathImg_EditAdd" Content="Открыть" Click="PathImg_EditAdd_Click"></Button>
+            <Button Name="EditSave" Content="Сохранить изменения" Click="EditSave_Click"/>
+        </StackPanel>
     </Grid>
 </Page>
