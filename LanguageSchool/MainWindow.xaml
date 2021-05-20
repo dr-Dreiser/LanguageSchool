@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LanguageSchool"
         mc:Ignorable="d"
-        Title="LanguageSchool" Height="450" Width="800" MinWidth="450" MinHeight="800" Icon="/Resource/school_logo.ico">
+        Title="LanguageSchool" Height="450"  ResizeMode="CanResizeWithGrip" Width="1000" MinWidth="1000" MinHeight="800" Icon="/Resource/school_logo.ico">
     <Grid>
-        <Frame Name="MainFrame"/>
+        <Frame Name="MainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

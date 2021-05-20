@@ -1,0 +1,79 @@
+﻿<Application x:Class="LanguageSchool.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:LanguageSchool"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <!--Акцент: #04a0ff-->
+        <!--Добавочный: #e7fabf-->
+        <!--Основной: #ffffff-->
+        <Style TargetType="TextBlock" x:Key="TitlePage">
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+        <ControlTemplate TargetType="Button" x:Key="FunctionServices">
+            <Border x:Name="Out" Background="#ffffff" BorderBrush="#04a0ff"  BorderThickness="2" HorizontalAlignment="Stretch"
+                    Margin="0 0 10 5" Padding="5 3 5 3" Cursor="Hand" >
+                <ContentControl x:Name="ContentButton"   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Content="{TemplateBinding Content}" FontSize="14" Foreground="#04a0ff"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="Out" Property="Background" Value="#04a0ff"/>
+                    <Setter TargetName="ContentButton" Property="Foreground" Value="#ffffff"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate TargetType="Button" x:Key="MenuButton">
+            <Border x:Name="Outside" Background="#ffffff" BorderBrush="#04a0ff" HorizontalAlignment="Stretch"  BorderThickness="2"
+                     Padding="10 3" Margin="0 5 0 5 ">
+                <ContentControl x:Name="Inside" Content="{TemplateBinding Content}" Foreground="#04a0ff"
+                                FontFamily="Comic Sans MS" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="Outside" Property="Background" Value="#04a0ff"/>
+                    <Setter TargetName="Inside" Property="Foreground" Value="#ffffff"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style TargetType="TextBlock" x:Key="TitleService">
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="CostTimeService">
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="DiscountService">
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="Menu">
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="QuitBlock">
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="5 5 0 0 "/>
+        </Style>
+        <Style TargetType="TextBox" x:Key="TextBox_AddService">
+            <Setter Property="BorderBrush" Value="#04a0ff"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background" Value="#ffffff"/>
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="4"/>
+        </Style>
+        <Style TargetType="GroupBox">
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="BorderBrush" Value="#e7fabf"/>
+        </Style>
+    </Application.Resources>
+</Application>

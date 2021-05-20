@@ -10,38 +10,39 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.1*"/>
-            <RowDefinition/>
-            <RowDefinition/>
             <RowDefinition Height="0.3*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.3*"/>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <GroupBox Header="Форма добавления новой услуги" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3">
+        <Image Source="..\Resource\school_logo.png" Stretch="Uniform" Grid.Row="0"/>
+        <GroupBox Header="Форма добавления новой услуги" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="4">
             <StackPanel Name="FormForAdd">
-                <TextBlock>Название услуги*</TextBlock>
-                <TextBox Name="TitleNewService"/>
-                <TextBlock>Стоимость услуги* </TextBlock>
-                <TextBox Name="CostNewService"/>
-                <TextBlock>Длительность одного занятия (в минутах)*</TextBlock>
-                <TextBox Name="TimeNewService"/>
-                <TextBlock>Описание услуги</TextBlock>
-                <TextBox Name="DescriptionNewService"/>
-                <TextBlock>Размер скидки*</TextBlock>
-                <TextBox Name="DiscountNewService"/>
-                <TextBlock>Изображение курса*</TextBlock>
-                <Button Name="DownloadImgNewService" Content="Загрузить изображение" Click="DownloadImgNewService_Click"/>
-                <Button Name="SaveNewService" Content="Сохранить" Click="SaveNewService_Click"/>
+                <TextBlock Style="{StaticResource QuitBlock}">Название услуги*</TextBlock>
+                <TextBox Name="TitleNewService" Style="{StaticResource TextBox_AddService}"/>
+                <TextBlock Style="{StaticResource QuitBlock}">Стоимость услуги* </TextBlock>
+                <TextBox Name="CostNewService" Style="{StaticResource TextBox_AddService}"/>
+                <TextBlock Style="{StaticResource QuitBlock}">Длительность одного занятия (в минутах)*</TextBlock>
+                <TextBox Name="TimeNewService" Style="{StaticResource TextBox_AddService}"/>
+                <TextBlock Style="{StaticResource QuitBlock}">Описание услуги</TextBlock>
+                <TextBox Name="DescriptionNewService" Style="{StaticResource TextBox_AddService}"/>
+                <TextBlock Style="{StaticResource QuitBlock}">Размер скидки*</TextBlock>
+                <TextBox Name="DiscountNewService" Style="{StaticResource TextBox_AddService}"/>
+                <TextBlock Style="{StaticResource QuitBlock}">Изображение курса*</TextBlock>
+                <Button Name="DownloadImgNewService" Content="Загрузить изображение" Click="DownloadImgNewService_Click" Template="{StaticResource MenuButton}"/>
+                <Button Name="SaveNewService" Content="Сохранить" Click="SaveNewService_Click" Template="{StaticResource MenuButton}"/>
             </StackPanel>
         </GroupBox>
-        <StackPanel Name="ButtonBack" Grid.Row="3">
-            <Button Name="Back" Content="Назад" Click="Back_Click"/>
+        <StackPanel Name="ButtonBack" Grid.Row="3" VerticalAlignment="Bottom">
+            <Button Name="Back" Content="Назад" Click="Back_Click" Template="{StaticResource MenuButton}"/>
         </StackPanel>
-        <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
-            <TextBlock>* - поля, обязательные для ввода данных</TextBlock>
+        <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+            <TextBlock Style="{StaticResource QuitBlock}">* - поля, обязательные для ввода данных</TextBlock>
         </StackPanel>
     </Grid>
 </Page>

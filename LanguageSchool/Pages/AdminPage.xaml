@@ -10,56 +10,57 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.3*"/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="0.3*"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Name="TitlePAge" Grid.Row="0" Grid.ColumnSpan="3">
-            <MediaElement Name="LogoImg" Initialized="LogoImg_Initialized"></MediaElement>
-            <TextBlock HorizontalAlignment="Center">Страница администратора</TextBlock>
+        <Image Name="LogoImg" Source="..\Resource\school_logo.png"  Stretch="Uniform"  Grid.Row="0"></Image>
+        <StackPanel Name="TitlePAge" Grid.Row="0" Grid.ColumnSpan="4">
+            <TextBlock HorizontalAlignment="Center" Style="{StaticResource TitlePage}">Страница администратора</TextBlock>
         </StackPanel>
-        <StackPanel Name="Menu" Grid.Row="1" Grid.Column="2" Grid.RowSpan="4" Visibility="Visible">
-            <TextBlock HorizontalAlignment="Center">Меню</TextBlock>
-            <Button Name="NewService_Add" Content="Новая услуга" Click="NewService_Add_Click"/>
+
+        <StackPanel Name="Menu" Grid.Row="1" Grid.Column="3" Grid.RowSpan="4" Visibility="Visible">
+            <TextBlock HorizontalAlignment="Center" Style="{StaticResource Menu}">Меню</TextBlock>
+            <Button Name="NewService_Add" Content="Новая услуга" Click="NewService_Add_Click" Template="{StaticResource MenuButton}"  />
         </StackPanel>
-        <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Name="Pattern" Visibility="Visible">
-                <StackPanel>
-                        <DataGrid Name="ServicesDG" AutoGenerateColumns="False" HorizontalAlignment="Center" CanUserAddRows="False">
-                            <DataGrid.Columns >
-                                <DataGridTemplateColumn>
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <StackPanel  Orientation="Horizontal" Initialized="StackPanel_Initialized">
-                                                <StackPanel >
-                                                    <MediaElement Width="100" Height="100" Initialized="MediaElement_Initialized" />
-                                                </StackPanel>
-                                                <StackPanel>
-                                                    <TextBlock Name="Title" Initialized="Title_Initialized"></TextBlock>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Name="FalseCount" Initialized="FalseCount_Initialized" TextDecorations="Strikethrough" />
-                                                        <TextBlock Name="CountTime" Initialized="CountTime_Initialized"/>
-                                                    </StackPanel>
-                                                    <TextBlock Name="Discount" Initialized="Discount_Initialized"></TextBlock>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <Button Name="Edit" Content="Редактировать" Initialized="Edit_Initialized" Click="Edit_Click"/>
-                                                        <Button Name="Delete" Content="Удалить" Initialized="Delete_Initialized" Click="Delete_Click"/>
-                                                        <Button Name="NewOrder" Content="Новый заказ" Initialized="NewOrder_Initialized" Click="NewOrder_Click"/>
-                                                    </StackPanel>
-                                                </StackPanel>
+        <ScrollViewer  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Name="Pattern" Visibility="Visible">
+            <StackPanel>
+                <DataGrid Name="ServicesDG" AutoGenerateColumns="False" HorizontalAlignment="Center" CanUserAddRows="False">
+                    <DataGrid.Columns >
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel  Orientation="Horizontal" Initialized="StackPanel_Initialized">
+                                        <StackPanel >
+                                            <MediaElement Width="100" Height="100" Initialized="MediaElement_Initialized" Margin="10 0 10 0" />
+                                        </StackPanel>
+                                        <StackPanel >
+                                            <TextBlock Name="Title" Initialized="Title_Initialized" Width="600" Style="{StaticResource TitleService}" TextWrapping="Wrap"></TextBlock>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Name="FalseCount" Initialized="FalseCount_Initialized" TextDecorations="Strikethrough" Style="{StaticResource CostTimeService}" />
+                                                <TextBlock Name="CountTime" Initialized="CountTime_Initialized" Style="{StaticResource CostTimeService}"/>
                                             </StackPanel>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </StackPanel>
-            </ScrollViewer>
+                                            <TextBlock Name="Discount" Initialized="Discount_Initialized" Style="{StaticResource DiscountService}"></TextBlock>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                                <Button Name="Edit" Content="Редактировать" Initialized="Edit_Initialized" Click="Edit_Click" Template="{StaticResource FunctionServices}"/>
+                                                <Button Name="Delete" Content="Удалить" Initialized="Delete_Initialized" Click="Delete_Click" Template="{StaticResource FunctionServices}"/>
+                                                <Button Name="NewOrder" Content="Новый заказ" Initialized="NewOrder_Initialized" Click="NewOrder_Click" Template="{StaticResource FunctionServices}"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </ScrollViewer>
 
         <StackPanel Name="FormForEdit" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="3" Visibility="Collapsed">
             <TextBlock>Редактирование данных</TextBlock>

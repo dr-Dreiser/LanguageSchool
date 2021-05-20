@@ -104,6 +104,9 @@ namespace LanguageSchool.Pages
                                     Discount = ConvertDiscount,
                                     MainImagePath = InputPathImg,
                                 };
+                                Classes.DataClass.RE.Service.Add(NewSer);
+                                Classes.DataClass.RE.SaveChanges();
+                                MessageBox.Show("Новая услуга добавлена");
                             }
                         }
                     }
