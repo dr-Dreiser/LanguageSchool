@@ -6,12 +6,11 @@
       xmlns:local="clr-namespace:LanguageSchool.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="AdminPage">
+      Title="AdminPage" Height="900" Width="900" MinWidth="900" MinHeight="900" >
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.3*"/>
-            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
@@ -62,24 +61,42 @@
             </StackPanel>
         </ScrollViewer>
 
-        <StackPanel Name="FormForEdit" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="3" Visibility="Collapsed">
-            <TextBlock>Редактирование данных</TextBlock>
-            <TextBlock>ID услуги</TextBlock>
-            <TextBox Name="IDObject" IsEnabled="False"></TextBox>
-            <TextBlock>Название услуги</TextBlock>
-            <TextBox Name="TitleObject"></TextBox>
-            <TextBlock>Стоимость услуги</TextBlock>
-            <TextBox Name="CostObject"></TextBox>
-            <TextBlock>Время проведения занятия (мин)</TextBlock>
-            <TextBox Name="TimeObject"></TextBox>
-            <TextBlock>Описание услуги</TextBlock>
-            <TextBox Name="DiscriptionObject"></TextBox>
-            <TextBlock>Скидка (% не вводить!)</TextBlock>
-            <TextBox Name="DiscountObject"></TextBox>
-            <TextBlock>Изображение</TextBlock>
-            <TextBox Name="PathImgObject"></TextBox>
-            <Button Name="PathImg_EditAdd" Content="Открыть" Click="PathImg_EditAdd_Click"></Button>
-            <Button Name="EditSave" Content="Сохранить изменения" Click="EditSave_Click"/>
-        </StackPanel>
+        <GroupBox Header="Редактирование данных" Name="FormForEdit" Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" Grid.RowSpan="2" Visibility="Collapsed">
+            <StackPanel  HorizontalAlignment="Stretch">
+                <TextBlock Style="{StaticResource QuitBlock}">ID услуги</TextBlock>
+                <TextBox Style="{StaticResource TextBox_AddService}" Name="IDObject" IsEnabled="False"></TextBox>
+                <TextBlock Style="{StaticResource QuitBlock}">Название услуги</TextBlock>
+                <TextBox Style="{StaticResource TextBox_AddService}" Name="TitleObject"></TextBox>
+                <TextBlock Style="{StaticResource QuitBlock}">Стоимость услуги</TextBlock>
+                <TextBox  Style="{StaticResource TextBox_AddService}" Name="CostObject"></TextBox>
+                <TextBlock Style="{StaticResource QuitBlock}">Время проведения занятия (мин)</TextBlock>
+                <TextBox Style="{StaticResource TextBox_AddService}" Name="TimeObject"></TextBox>
+                <TextBlock Style="{StaticResource QuitBlock}">Описание услуги</TextBlock>
+                <TextBox Style="{StaticResource TextBox_AddService}" Name="DiscriptionObject"></TextBox>
+                <TextBlock Style="{StaticResource QuitBlock}">Скидка (% не вводить!)</TextBlock>
+                <TextBox Style="{StaticResource TextBox_AddService}" Name="DiscountObject"></TextBox>
+                <TextBlock Style="{StaticResource QuitBlock}">Изображение</TextBlock>
+                <TextBox Style="{StaticResource TextBox_AddService}" Name="PathImgObject"></TextBox>
+                <Button Name="PathImg_EditAdd" Content="Открыть" Click="PathImg_EditAdd_Click" Template="{StaticResource MenuButton}"/>
+                <Button Name="EditSave" Content="Сохранить изменения" Click="EditSave_Click" Template="{StaticResource MenuButton}"/>
+                <Button Name="Back" Content="Вернуься" Click="Back_Click" Template="{StaticResource MenuButton}"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Name="RecordClientServis" Header="Новый заказ" Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3" Visibility="Collapsed">
+            <StackPanel>
+                <TextBlock Style="{StaticResource QuitBlock}">Наимнование услуги</TextBlock>
+                <TextBlock Name="OutTitle"/>
+                <TextBlock Style="{StaticResource QuitBlock}">Длительность занятя</TextBlock>
+                <TextBlock Name="OutTime"/>
+                <TextBlock Style="{StaticResource QuitBlock}">ФИО клиента</TextBlock>
+                <ComboBox Name="ComboBoxNameClient" FontSize="14"/>
+                <TextBlock Style="{StaticResource QuitBlock}">Дата занятия</TextBlock>
+                <DatePicker Name="DateLection" FontSize="14"/>
+                <TextBlock Style="{StaticResource QuitBlock}">Время начало занятия </TextBlock>
+                <TextBox Name="TextBoxInputTime" Style="{StaticResource TextBox_AddService}"/>
+                <Button Name="Record" Content="Записать клента на занятие" Click="Record_Click" Template="{StaticResource MenuButton}"/>
+                <Button Name="Back_Menu" Content="Вернуться" Click="Back_Menu_Click"  Template="{StaticResource MenuButton}"/>
+            </StackPanel>
+        </GroupBox>
     </Grid>
 </Page>

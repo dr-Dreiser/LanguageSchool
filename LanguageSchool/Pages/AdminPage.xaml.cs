@@ -17,6 +17,8 @@ using System.Windows.Forms;
 using Button = System.Windows.Controls.Button;
 using MessageBox = System.Windows.MessageBox;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
+using LanguageSchool.ModelData;
+using System.Text.RegularExpressions;
 
 namespace LanguageSchool.Pages
 {
@@ -33,10 +35,17 @@ namespace LanguageSchool.Pages
         ModelData.Service EditObject;
         string NewPathImg;
         string CroopNewPathImg;
+
+        int GlobalTime;
+        List<Client> ClientList = Classes.DataClass.RE.Client.ToList();
+        ModelData.Service ServiceObject;
         public AdminPage()
         {
             InitializeComponent();
             ServicesDG.ItemsSource = ServicesList;
+            ComboBoxNameClient.ItemsSource = ClientList;
+            ComboBoxNameClient.SelectedValuePath = "ID";
+            ComboBoxNameClient.DisplayMemberPath = "FIO";
 
         }
         int i = -1;
@@ -202,7 +211,16 @@ namespace LanguageSchool.Pages
             Button BNewOrder = (Button)sender;
             int index = Convert.ToInt32(BNewOrder.Uid);
             ModelData.Service ser = ServicesList[index];
-            MessageBox.Show("Новый заказ у ячейки " + ser.Title);
+
+            RecordClientServis.Visibility = Visibility.Visible;
+            Pattern.Visibility = Visibility.Collapsed;
+            Menu.Visibility = Visibility.Collapsed;
+
+            OutTitle.Text = ser.Title;
+            OutTime.Text = Convert.ToString(ser.DurationInSeconds / 60) + " минут";
+            GlobalTime = ser.DurationInSeconds / 60;
+            ServiceObject = ser;
+
         }
 
         private void LogoImg_Initialized(object sender, EventArgs e)
@@ -273,6 +291,60 @@ namespace LanguageSchool.Pages
         private void NewService_Add_Click(object sender, RoutedEventArgs e)
         {
             ClassFrame.VariableFrame.Navigate(new Pages.NewServiceAdd());
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            Menu.Visibility = Visibility.Visible;
+            Pattern.Visibility = Visibility.Visible;
+            FormForEdit.Visibility = Visibility.Collapsed;
+        }
+
+        private void Record_Click(object sender, RoutedEventArgs e)
+        {
+            int IndexClient = ComboBoxNameClient.SelectedIndex + 1; // IDClient
+            int IndexService = ServiceObject.ID;
+            Regex Time1 = new Regex("[0-1][0-9]:[0-5][0-9]");
+            Regex Time2 = new Regex("2[0-3]:[0-5][0-9]");
+            TimeSpan TS;
+            DateTime DT;
+
+            if (ComboBoxNameClient.SelectedItem != null)
+            {
+                if ((Time1.IsMatch(TextBoxInputTime.Text) || Time2.IsMatch(TextBoxInputTime.Text)) && TextBoxInputTime.Text.Length == 5)
+                {
+                    TS = TimeSpan.Parse(TextBoxInputTime.Text);
+                    DT = Convert.ToDateTime(DateLection.SelectedDate);
+                    DT = DT.Add(TS);//Дата и время
+                    if (DT > DateTime.Now)
+                    {
+                        Record.IsEnabled = true;
+                        ClientService NewClientService = new ClientService() { ClientID = IndexClient, ServiceID = IndexService, StartTime = DT };
+                        Classes.DataClass.RE.ClientService.Add(NewClientService);
+                        Classes.DataClass.RE.SaveChanges();
+                        MessageBox.Show("Клиент записан");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Занятие уже прошло");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Неверно указано время");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Не все поля заполнены");
+            }  
+         }
+
+        private void Back_Menu_Click(object sender, RoutedEventArgs e)
+        {
+            RecordClientServis.Visibility = Visibility.Collapsed;
+            Pattern.Visibility = Visibility.Visible;
+            Menu.Visibility = Visibility.Visible;
         }
     }
 }
