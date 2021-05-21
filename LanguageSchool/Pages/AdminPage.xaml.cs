@@ -60,7 +60,9 @@ namespace LanguageSchool.Pages
             {
                 MediaElement image = (MediaElement)sender;
                 ModelData.Service ServiceImg = ServicesList[i];
-                Uri PathImg = new Uri(ServiceImg.MainImagePath, UriKind.RelativeOrAbsolute);
+                string Path1 = Environment.CurrentDirectory;
+                string Path2 = Path1.Substring(0, Path1.Length - 9) + ServiceImg.MainImagePath;
+                Uri PathImg = new Uri(Path2, UriKind.RelativeOrAbsolute);
                 image.Source = PathImg;
             }
         }
