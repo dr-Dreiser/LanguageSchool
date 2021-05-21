@@ -27,7 +27,10 @@ namespace LanguageSchool.Pages
     /// </summary>
     public partial class AdminPage : Page
     {
-        List<ModelData.Service> ServicesList = Classes.DataClass.RE.Service.ToList();
+        List<ModelData.Service> ServicesList1 = Classes.DataClass.RE.Service.ToList();
+        List<ModelData.Service> ServicesList = new List<Service>(); // для отрисовки
+        int CountZapis;
+        int CountBase;
         double res;
         double DiscountDouble;
         TextBlock TBFalseCount;
@@ -42,6 +45,8 @@ namespace LanguageSchool.Pages
         public AdminPage()
         {
             InitializeComponent();
+            ServicesList = ServicesList1;
+            CountBase = ServicesList.Count;
             ServicesDG.ItemsSource = ServicesList;
             ComboBoxNameClient.ItemsSource = ClientList;
             ComboBoxNameClient.SelectedValuePath = "ID";
@@ -174,6 +179,8 @@ namespace LanguageSchool.Pages
 
             Pattern.Visibility = Visibility.Collapsed; 
             Menu.Visibility = Visibility.Collapsed;
+            RecordClientServis.Visibility = Visibility.Collapsed;
+            Filtr.Visibility = Visibility.Collapsed;
             FormForEdit.Visibility = Visibility.Visible;
 
             EditObject = ServicesList[index];
@@ -191,7 +198,8 @@ namespace LanguageSchool.Pages
             Button BDelete = (Button)sender;
             int index = Convert.ToInt32(BDelete.Uid);
 
-            DialogResult ApprovalDelete = (DialogResult)MessageBox.Show("Вы действительно хотите удалить услугу?", "Внимание!", (MessageBoxButton)MessageBoxButtons.YesNo);
+            DialogResult ApprovalDelete = (DialogResult)MessageBox.Show("Вы действительно хотите удалить услугу?",
+                                                                        "Внимание!", (MessageBoxButton)MessageBoxButtons.YesNo);
             if (ApprovalDelete == DialogResult.Yes)
             {
                 ModelData.Service ser = ServicesList[index];
@@ -215,12 +223,12 @@ namespace LanguageSchool.Pages
             RecordClientServis.Visibility = Visibility.Visible;
             Pattern.Visibility = Visibility.Collapsed;
             Menu.Visibility = Visibility.Collapsed;
+            Filtr.Visibility = Visibility.Collapsed;
 
             OutTitle.Text = ser.Title;
             OutTime.Text = Convert.ToString(ser.DurationInSeconds / 60) + " минут";
             GlobalTime = ser.DurationInSeconds / 60;
             ServiceObject = ser;
-
         }
 
         private void LogoImg_Initialized(object sender, EventArgs e)
@@ -228,16 +236,13 @@ namespace LanguageSchool.Pages
             MediaElement image = (MediaElement)sender;
             Uri PathImg = new Uri("Resource / school_logo.png", UriKind.RelativeOrAbsolute);
             image.Source = PathImg;
-
-            
-
-
         }
         
         private void EditSave_Click(object sender, RoutedEventArgs e)
         {
             Pattern.Visibility = Visibility.Visible;
             Menu.Visibility = Visibility.Visible;
+            Filtr.Visibility = Visibility.Visible;
             FormForEdit.Visibility = Visibility.Collapsed;
 
             EditObject.ID = Convert.ToInt32(IDObject.Text);
@@ -278,14 +283,11 @@ namespace LanguageSchool.Pages
             }
             else
             {
-                
                 EditObject.MainImagePath = PathImgObject.Text;
             }
 
             Classes.DataClass.RE.SaveChanges();
             ClassFrame.VariableFrame.Navigate(new Pages.AdminPage());
-
-
         }
 
         private void NewService_Add_Click(object sender, RoutedEventArgs e)
@@ -297,6 +299,7 @@ namespace LanguageSchool.Pages
         {
             Menu.Visibility = Visibility.Visible;
             Pattern.Visibility = Visibility.Visible;
+            Filtr.Visibility = Visibility.Visible;
             FormForEdit.Visibility = Visibility.Collapsed;
         }
 
@@ -323,6 +326,12 @@ namespace LanguageSchool.Pages
                         Classes.DataClass.RE.ClientService.Add(NewClientService);
                         Classes.DataClass.RE.SaveChanges();
                         MessageBox.Show("Клиент записан");
+
+                        int min =  ServiceObject.DurationInSeconds / 60;
+                        DateTime DT1 = DT.AddMinutes(min);
+                        TimeSpan TS1 = DT1.TimeOfDay;
+                        TextBoxOutTime.Text = Convert.ToString(TS1);
+
                     }
                     else
                     {
@@ -345,6 +354,97 @@ namespace LanguageSchool.Pages
             RecordClientServis.Visibility = Visibility.Collapsed;
             Pattern.Visibility = Visibility.Visible;
             Menu.Visibility = Visibility.Visible;
+            Filtr.Visibility = Visibility.Visible;
         }
+
+
+        /*5 день*/
+        private void SortUp_Click(object sender, RoutedEventArgs e)
+        {
+            i = -1;
+            ServicesList.Sort((x, y) => x.Cost.CompareTo(y.Cost));
+            CountZapis = ServicesList.Count;
+            CountZap.Text = CountZapis + " из " + CountBase + " записей";
+            ServicesDG.Items.Refresh();
+        }
+
+        private void SortDown_Click(object sender, RoutedEventArgs e)
+        {
+            i = -1;
+            ServicesList.Sort((x, y) => x.Cost.CompareTo(y.Cost));
+            ServicesList.Reverse();
+            CountZapis = ServicesList.Count;
+            CountZap.Text = CountZapis + " из " + CountBase + " записей";
+            ServicesDG.Items.Refresh();
+
+        }
+        List<ModelData.Service> SLFilerDiscount = new List<Service>();
+        private void ClearDiscountFilter_Click(object sender, RoutedEventArgs e)
+        {
+            ServicesList = ServicesList1;
+            CountZapis = 0;
+        }
+        private void DiscountComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            i = -1;
+            switch (DiscountComboBox.SelectedIndex)
+            {
+                case 0:
+                    SLFilerDiscount = ServicesList.Where(x => x.Discount< 0.05).ToList();
+                    ServicesList = SLFilerDiscount;
+                    ServicesDG.ItemsSource = ServicesList;
+                    CountZapis = ServicesList.Count;
+                    CountZap.Text = CountZapis + " из " + CountBase + " записей";
+                    break;
+                case 1:
+                    SLFilerDiscount = ServicesList.Where(x => (x.Discount >= 0.05) && (x.Discount < 0.15)).ToList();
+                    ServicesList = SLFilerDiscount;
+                    ServicesDG.ItemsSource = ServicesList;
+                    CountZapis = ServicesList.Count;
+                    CountZap.Text = CountZapis + " из " + CountBase + " записей";
+                    break;
+                case 2:
+                    SLFilerDiscount = ServicesList.Where(x => (x.Discount >= 0.15) && (x.Discount < 0.3)).ToList();
+                    ServicesList = SLFilerDiscount;
+                    ServicesDG.ItemsSource = ServicesList;
+                    CountZapis = ServicesList.Count;
+                    CountZap.Text = CountZapis + " из " + CountBase + " записей";
+                    break;
+                case 3:
+                    SLFilerDiscount = ServicesList.Where(x => (x.Discount >= 0.3) && (x.Discount < 0.7)).ToList();
+                    ServicesList = SLFilerDiscount;
+                    ServicesDG.ItemsSource = ServicesList;
+                    CountZapis = ServicesList.Count;
+                    CountZap.Text = CountZapis + " из " + CountBase + " записей";
+                    break;
+                case 4:
+                    SLFilerDiscount = ServicesList.Where(x => (x.Discount >= 0.7) && (x.Discount < 1)).ToList();
+                    ServicesList = SLFilerDiscount;
+                    ServicesDG.ItemsSource = ServicesList;
+                    CountZapis = ServicesList.Count;
+                    CountZap.Text = CountZapis + " из " + CountBase + " записей";
+                    break;
+                case 5:
+                    SLFilerDiscount = ServicesList.Where(x => (x.Discount >= 0) && (x.Discount <= 1)).ToList();
+                    ServicesList = SLFilerDiscount;
+                    ServicesDG.ItemsSource = ServicesList;
+                    CountZapis = ServicesList.Count;
+                    CountZap.Text = CountZapis + " из " + CountBase + " записей";
+                    break;
+            }
+
+        }
+        private void InputNameService_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            i = -1;
+            List<ModelData.Service> SLInputNameFiltr = new List<Service>();
+            SLInputNameFiltr = ServicesList.Where(x => x.Title.Contains(InputNameService.Text)).ToList();
+            ServicesList = SLInputNameFiltr;
+            ServicesDG.ItemsSource = ServicesList;
+            CountZapis = ServicesList.Count;
+            CountZap.Text = CountZapis + " из " + CountBase + " записей";
+        }
+
+        
     }
 }

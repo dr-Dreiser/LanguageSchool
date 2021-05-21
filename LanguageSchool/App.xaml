@@ -10,6 +10,8 @@
         <Style TargetType="TextBlock" x:Key="TitlePage">
             <Setter Property="FontFamily" Value="Comic Sans MS"/>
             <Setter Property="FontSize" Value="20"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            
         </Style>
         <ControlTemplate TargetType="Button" x:Key="FunctionServices">
             <Border x:Name="Out" Background="#ffffff" BorderBrush="#04a0ff"  BorderThickness="2" HorizontalAlignment="Stretch"
@@ -72,7 +74,7 @@
         </Style>
         <Style TargetType="GroupBox">
             <Setter Property="FontFamily" Value="Comic Sans MS"/>
-            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="BorderBrush" Value="#e7fabf"/>
             <Setter Property="Padding" Value="5"/>
         </Style>
