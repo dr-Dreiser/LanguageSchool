@@ -46,8 +46,8 @@ namespace LanguageSchool.Pages
         {
             InitializeComponent();
             ServicesList = ServicesList1;
-            CountBase = ServicesList.Count;
             ServicesDG.ItemsSource = ServicesList;
+            CountBase = ServicesList.Count;
             ComboBoxNameClient.ItemsSource = ClientList;
             ComboBoxNameClient.SelectedValuePath = "ID";
             ComboBoxNameClient.DisplayMemberPath = "FIO";
