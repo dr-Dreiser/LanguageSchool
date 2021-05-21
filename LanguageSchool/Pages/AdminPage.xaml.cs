@@ -31,7 +31,7 @@ namespace LanguageSchool.Pages
         List<ModelData.Service> ServicesList = new List<Service>(); // для отрисовки
         int CountZapis;
         int CountBase;
-        double res;
+
         double DiscountDouble;
         TextBlock TBFalseCount;
 
@@ -51,7 +51,6 @@ namespace LanguageSchool.Pages
             ComboBoxNameClient.ItemsSource = ClientList;
             ComboBoxNameClient.SelectedValuePath = "ID";
             ComboBoxNameClient.DisplayMemberPath = "FIO";
-
         }
         int i = -1;
         private void MediaElement_Initialized(object sender, EventArgs e)
@@ -103,7 +102,6 @@ namespace LanguageSchool.Pages
                 BNewOrder.Uid = Convert.ToString(i);
             }
         }
-
         private void Title_Initialized(object sender, EventArgs e)
         {
             if (i < ServicesList.Count)
@@ -112,7 +110,6 @@ namespace LanguageSchool.Pages
                 ModelData.Service ser = ServicesList[i];
                 TBTitle.Text = ser.Title;
             }
-
         }
         private void Discount_Initialized(object sender, EventArgs e)
         {
@@ -132,13 +129,10 @@ namespace LanguageSchool.Pages
                 }
             }
         }
-
         private void FalseCount_Initialized(object sender, EventArgs e)
         {
             TBFalseCount = (TextBlock)sender;
         }
-
-
         private void CountTime_Initialized(object sender, EventArgs e)
         {
             TextBlock TBCountTime = (TextBlock)sender;
@@ -155,9 +149,7 @@ namespace LanguageSchool.Pages
                 else
                 {
                     TBCountTime.Text = Convert.ToDouble(ser.Cost) + " рублей за " + ser.DurationInSeconds / 60 + " минут";
-                }
-                
-                
+                }  
             }
         }
         private void PathImg_EditAdd_Click(object sender, RoutedEventArgs e)
@@ -315,13 +307,12 @@ namespace LanguageSchool.Pages
         /// <param name="e"></param>
         private void Record_Click(object sender, RoutedEventArgs e)
         {
-            int IndexClient = ComboBoxNameClient.SelectedIndex + 1; // IDClient
+            int IndexClient = ComboBoxNameClient.SelectedIndex + 1;
             int IndexService = ServiceObject.ID;
             Regex Time1 = new Regex("[0-1][0-9]:[0-5][0-9]");
             Regex Time2 = new Regex("2[0-3]:[0-5][0-9]");
             TimeSpan TS;
             DateTime DT;
-
             if (ComboBoxNameClient.SelectedItem != null)
             {
                 if ((Time1.IsMatch(TextBoxInputTime.Text) || Time2.IsMatch(TextBoxInputTime.Text)) && TextBoxInputTime.Text.Length == 5)
@@ -341,7 +332,6 @@ namespace LanguageSchool.Pages
                         DateTime DT1 = DT.AddMinutes(min);
                         TimeSpan TS1 = DT1.TimeOfDay;
                         TextBoxOutTime.Text = Convert.ToString(TS1);
-
                     }
                     else
                     {
@@ -366,9 +356,6 @@ namespace LanguageSchool.Pages
             Menu.Visibility = Visibility.Visible;
             Filtr.Visibility = Visibility.Visible;
         }
-
-
-        /*5 день*/
         private void SortUp_Click(object sender, RoutedEventArgs e)
         {
             i = -1;
@@ -377,7 +364,6 @@ namespace LanguageSchool.Pages
             CountZap.Text = CountZapis + " из " + CountBase + " записей";
             ServicesDG.Items.Refresh();
         }
-
         private void SortDown_Click(object sender, RoutedEventArgs e)
         {
             i = -1;
@@ -386,7 +372,6 @@ namespace LanguageSchool.Pages
             CountZapis = ServicesList.Count;
             CountZap.Text = CountZapis + " из " + CountBase + " записей";
             ServicesDG.Items.Refresh();
-
         }
         List<ModelData.Service> SLFilerDiscount = new List<Service>();
         private void ClearDiscountFilter_Click(object sender, RoutedEventArgs e)
