@@ -239,7 +239,6 @@ namespace LanguageSchool.Pages
         }
         /// <summary>
         /// Метод для редактирования данных об услуге через форму.
-        /// 
         /// </summary>
         /// <param name="EditObject">Глобальная переменная класса Service, которой было присвоино значкние в методе Edit_Click.
         /// Содержит в себе объект из ServiceList, то есть, все необходимые поля, которые можно изменить</param>
@@ -309,7 +308,11 @@ namespace LanguageSchool.Pages
             Filtr.Visibility = Visibility.Visible;
             FormForEdit.Visibility = Visibility.Collapsed;
         }
-
+        /// <summary>
+        /// Метод для записи клента на курс
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Record_Click(object sender, RoutedEventArgs e)
         {
             int IndexClient = ComboBoxNameClient.SelectedIndex + 1; // IDClient
