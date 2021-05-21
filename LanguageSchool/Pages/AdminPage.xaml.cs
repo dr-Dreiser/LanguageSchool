@@ -237,7 +237,14 @@ namespace LanguageSchool.Pages
             Uri PathImg = new Uri("Resource / school_logo.png", UriKind.RelativeOrAbsolute);
             image.Source = PathImg;
         }
-        
+        /// <summary>
+        /// Метод для редактирования данных об услуге через форму.
+        /// 
+        /// </summary>
+        /// <param name="EditObject">Глобальная переменная класса Service, которой было присвоино значкние в методе Edit_Click.
+        /// Содержит в себе объект из ServiceList, то есть, все необходимые поля, которые можно изменить</param>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EditSave_Click(object sender, RoutedEventArgs e)
         {
             Pattern.Visibility = Visibility.Visible;
